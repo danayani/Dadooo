@@ -1,7 +1,7 @@
 "use client"
 import {UIEvent} from 'react';
 import {useEffect, useState} from "react";
-import axios from "axios";
+// import axios from "axios";
 
 // would prefer if it would be more globally or with a better state management
 const impressionFeeds: string[] = []
@@ -129,12 +129,14 @@ export default function FeedPage() {
         }
 
         impressionFeeds.push(id)
-        axios.get(`https://backend.tedooo.com/?itemId=${id}`
-            , {
-                headers: {
-                    "Access-Control-Allow-Origin": "*" // this is needed only for Vercel deployment (security restrictions)
-                }
-            }
+        fetch(
+        // axios.get(
+            `https://backend.tedooo.com/?itemId=${id}`
+            // , {
+            //     headers: {
+            //         "Access-Control-Allow-Origin": "*" // this is needed only for Vercel deployment (security restrictions)
+            //     }
+            // }
         )
             .then((response) => {
                 if (response.status === 200) {
