@@ -76,7 +76,14 @@ export default function FeedPage() {
     function updateFeedsData() {
         console.log("Loading feeds")
 
-        fetch(baseURL())
+        fetch(baseURL(),
+            {
+                headers: new Headers({
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*",
+                })
+            }
+        )
             // .then()
 
             // axios.get(baseURL()
@@ -130,7 +137,7 @@ export default function FeedPage() {
 
         impressionFeeds.push(id)
         fetch(
-        // axios.get(
+            // axios.get(
             `https://backend.tedooo.com/?itemId=${id}`
             // , {
             //     headers: {
