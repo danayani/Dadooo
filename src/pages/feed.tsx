@@ -75,22 +75,35 @@ export default function FeedPage() {
 
     function updateFeedsData() {
         console.log("Loading feeds")
-        axios.get(baseURL()
-            , {
-                headers: {
-                    "Access-Control-Allow-Origin": "*" // this is needed only for Vercel deployment (security restrictions)
+
+        fetch(baseURL())
+            // .then()
+
+            // axios.get(baseURL()
+            //     , {
+            //         headers: {
+            //             "Access-Control-Allow-Origin": "*" // this is needed only for Vercel deployment (security restrictions)
+            //         }
+            //     }
+            // ).then((response) => {
+            //
+            //     res.header("Access-Control-Allow-Origin", "*");
+            //
+            //     return response.headers.set("Access-Control-Allow-Origin", "*")
+            // })
+
+            .then(async (response) => {
+                // const feedData: FeedData = response.data
+                const responseBody = await response.json();
+                const feedData: FeedData = responseBody as FeedData
+
+                if (feedData.hasMore) {
+                    setSkip(skip + skipStep)
                 }
-            }
-        ).then((response) => {
-            const feedData: FeedData = response.data
 
-            if (feedData.hasMore) {
-                setSkip(skip + skipStep)
-            }
-
-            setHasMoreFeed(feedData.hasMore)
-            setFeedShows([...feedShows, ...feedData.data])
-        });
+                setHasMoreFeed(feedData.hasMore)
+                setFeedShows([...feedShows, ...feedData.data])
+            });
     }
 
     function updateFeedLikeness(id: string) {
