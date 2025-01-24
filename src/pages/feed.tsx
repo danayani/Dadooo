@@ -1,5 +1,5 @@
 "use client"
-import { UIEvent } from 'react';
+import {UIEvent} from 'react';
 import {useEffect, useState} from "react";
 import axios from "axios";
 
@@ -75,7 +75,13 @@ export default function FeedPage() {
 
     function updateFeedsData() {
         console.log("Loading feeds")
-        axios.get(baseURL()).then((response) => {
+        axios.get(baseURL()
+            , {
+                headers: {
+                    "Access-Control-Allow-Origin": "*" // this is needed only for Vercel deployment (security restrictions)
+                }
+            }
+        ).then((response) => {
             const feedData: FeedData = response.data
 
             if (feedData.hasMore) {
@@ -110,7 +116,13 @@ export default function FeedPage() {
         }
 
         impressionFeeds.push(id)
-        axios.get(`https://backend.tedooo.com/?itemId=${id}`)
+        axios.get(`https://backend.tedooo.com/?itemId=${id}`
+            , {
+                headers: {
+                    "Access-Control-Allow-Origin": "*" // this is needed only for Vercel deployment (security restrictions)
+                }
+            }
+        )
             .then((response) => {
                 if (response.status === 200) {
                     console.log(`impressionFeed ID - ${id} - added`)
@@ -211,7 +223,8 @@ function PostImages(props: { images: string[] }) {
     //can use extractColors for images bg, but the images is blocked for (npm/extract-colors)
     const bgColor = 'bg-VeryLightGray'
     if (props.images.length === 1) {
-        return <img className={`h-[517px] w-[1120px] object-contain ${bgColor}`} src={props.images[0]} alt="post image"/>
+        return <img className={`h-[517px] w-[1120px] object-contain ${bgColor}`} src={props.images[0]}
+                    alt="post image"/>
     }
 
     if (props.images.length > 1) {
