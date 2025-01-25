@@ -35,7 +35,6 @@ function Tabs() {
 }
 
 function Tab(props: { icon: string, title: string, key?: number, active: boolean }) {
-    //todo: check "after" so the underline will be rounded
     const activeClass = props.active ? 'text-GreenBlue text-bold border-b-2 border-GreenBlue ' : 'text-LightGray'
     return (<div className={` ${activeClass} h-full flex flex-row gap-1 items-center justify-center pl-1 pr-5`}>
         <div>

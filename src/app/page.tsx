@@ -1,11 +1,11 @@
 import NavigationBar from "@/components/navigation-bar";
-import FeedPage from "@/pages/feed";
+import Feed from "@/components/feed";
 
 export default function Home() {
   return (
       <div>
         <NavigationBar/>
-        <FeedPage/>
+        <Feed/>
       </div>
   )
 }

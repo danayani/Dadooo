@@ -18,3 +18,8 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+
+
+/*
+This config come with next.js by default
+ */
