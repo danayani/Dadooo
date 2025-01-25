@@ -3,11 +3,12 @@ import { UIEvent } from 'react';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {Post} from "@/components/post";
-import {tedoooDomain, feedURL} from "@/util/const";
+import {tedoooDomain} from "@/util/const";
 import {FeedData, PostItem} from "@/util/types";
+import {feedURL, impressionTracking} from "@/util/functions";
 
 // would prefer if it would be more globally or with a better state management
-const impressionFeeds: string[] = []
+const AlreadyImpressionsIds: string[] = []
 
 export default function Feed() {
 
@@ -29,7 +30,7 @@ export default function Feed() {
         {feedShows.map((feed) => {
             return (
                 <div className={'pt-5 items-center flex flex-col'} key={feed.id}>
-                    <Post post={feed} updateFeedLikeness={updateFeedLikeness} impressionTracking={impressionTracking}/>
+                    <Post post={feed} updateFeedLikeness={updateFeedLikeness} alreadyImpressionIds={AlreadyImpressionsIds}/>
                 </div>)
         })}
     </div>)
@@ -85,19 +86,5 @@ export default function Feed() {
         })
         setFeedShows(updatedFeed)
 
-    }
-
-    function impressionTracking(id: string) {
-        if (impressionFeeds.includes(id)) {
-            return
-        }
-
-        impressionFeeds.push(id)
-        axios.get(`${tedoooDomain}/?itemId=${id}`)
-            .then((response) => {
-                if (response.status === 200) {
-                    console.log(`impressionFeed ID - ${id} - added`)
-                }
-            })
     }
 }

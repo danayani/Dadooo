@@ -1,12 +1,13 @@
 import {PostItem} from "@/util/types";
+import {impressionTracking} from "@/util/functions";
 
 /**
  * This function will render each post in the feed
  * it will render the post info, description, images, interaction info, and interaction buttons
  * @param props - post
  */
-export function Post(props: { post: PostItem, updateFeedLikeness: (id: string) => void , impressionTracking: (id: string) => void }) {
-    props.impressionTracking(props.post.id)
+export function Post(props: { post: PostItem, updateFeedLikeness: (id: string) => void, alreadyImpressionIds: string[] }) {
+    impressionTracking(props.post.id, props.alreadyImpressionIds)
     return (
         <div className={'flex flex-col gap-4 pt-4 pb-4 bg-White rounded  font-DMSans ' +
             'shadow-[0px_1px_7px_0px_#282F2D12]'
@@ -36,7 +37,7 @@ function PostInfo(props: { avatarImage: string, username: string, shopName: stri
                 <div className={"text-Blue"} data-testid={"shop-name"}>
                     {props.shopName}
                 </div>
-                <TimePass date={props.date}/>
+                <HoursHasGone date={props.date}/>
             </div>
         </div>
     </div>
@@ -88,7 +89,7 @@ function Like(props: { didLike: boolean }) {
     </div>
 }
 
-function TimePass(props: { date: string }) {
+function HoursHasGone(props: { date: string }) {
     const postTime = new Date(props.date)
     const currentTime = new Date()
 
@@ -110,7 +111,7 @@ function PostImages(props: { images: string[] }) {
     //there is no images to render
     if (props.images.length === 0) return <div/>
 
-    //can use extractColors for images bg, but the images is blocked for (npm/extract-colors)
+    //can use extractColors for images bg, but the images can only be use in local (npm/extract-colors)
     const bgColor = 'bg-VeryLightGray'
     if (props.images.length === 1) {
         return <img className={`h-[517px] w-[1120px] object-contain ${bgColor}`} src={props.images[0]} alt="post image"/>
