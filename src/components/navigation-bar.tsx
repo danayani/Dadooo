@@ -5,6 +5,7 @@ export default function NavigationBar() {
         <div className={"h-[58px] w-full bg-White flex justify-center shadow-[0px_1px_7px_0px_#282F2D12]"}>
             <div className={'w-[1120px] flex flex-row items-center justify-between'}>
                 <div className={"flex flex-row items-center gap-2"}>
+                    {/* I could use <Image/> from Image/Next. I didn't, because choose to write in react */}
                     <img src={"/icons/logo.svg"} alt={"logo"}/>
                     <Search/>
                 </div>

@@ -24,7 +24,6 @@ export function Post(props: { post: PostItem, updateFeedLikeness: (id: string) =
 function PostInfo(props: { avatarImage: string, username: string, shopName: string, date: string }) {
     return <div className={"flex flex-row gap-2 items-center px-4"}>
         <div>
-            {/*force the image to be a circle :)*/}
             <div className={'h-10 w-10 overflow-hidden rounded-full'}>
                 <img src={props.avatarImage} alt="avatar" height={40} width={40}/>
             </div>
@@ -81,7 +80,7 @@ function PostDescription(props: { description: string }) {
 
 
 function Like(props: { didLike: boolean }) {
-    const likeButtonTextColor = props.didLike ? ' text-Blue ' : ' text-DarkGray '
+    const likeButtonTextColor = props.didLike ? 'text-Blue' : 'text-DarkGray'
     const likeButtonIcon = props.didLike ? "/icons/like-blue.svg" : "/icons/unlike.svg"
     return <div className='flex flex-row gap-1 items-center hover:cursor-pointer'>
         <img src={likeButtonIcon} alt={"like"} height={18} width={18}/>
