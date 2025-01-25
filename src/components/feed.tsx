@@ -3,9 +3,8 @@ import { UIEvent } from 'react';
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {Post} from "@/components/post";
-import {tedoooDomain} from "@/util/const";
 import {FeedData, PostItem} from "@/util/types";
-import {feedURL, impressionTracking} from "@/util/functions";
+import {feedURL} from "@/util/functions";
 
 // would prefer if it would be more globally or with a better state management
 const AlreadyImpressionsIds: string[] = []
