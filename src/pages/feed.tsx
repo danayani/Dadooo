@@ -1,7 +1,7 @@
 "use client"
-import {UIEvent} from 'react';
+import { UIEvent } from 'react';
 import {useEffect, useState} from "react";
-// import axios from "axios";
+import axios from "axios";
 
 // would prefer if it would be more globally or with a better state management
 const impressionFeeds: string[] = []
@@ -75,42 +75,16 @@ export default function FeedPage() {
 
     function updateFeedsData() {
         console.log("Loading feeds")
+        axios.get(baseURL()).then((response) => {
+            const feedData: FeedData = response.data
 
-        fetch(baseURL(),
-            {
-                headers: new Headers({
-                    "Content-Type": "application/json",
-                    "Access-Control-Allow-Origin": "*",
-                })
+            if (feedData.hasMore) {
+                setSkip(skip + skipStep)
             }
-        )
-            // .then()
 
-            // axios.get(baseURL()
-            //     , {
-            //         headers: {
-            //             "Access-Control-Allow-Origin": "*" // this is needed only for Vercel deployment (security restrictions)
-            //         }
-            //     }
-            // ).then((response) => {
-            //
-            //     res.header("Access-Control-Allow-Origin", "*");
-            //
-            //     return response.headers.set("Access-Control-Allow-Origin", "*")
-            // })
-
-            .then(async (response) => {
-                // const feedData: FeedData = response.data
-                const responseBody = await response.json();
-                const feedData: FeedData = responseBody as FeedData
-
-                if (feedData.hasMore) {
-                    setSkip(skip + skipStep)
-                }
-
-                setHasMoreFeed(feedData.hasMore)
-                setFeedShows([...feedShows, ...feedData.data])
-            });
+            setHasMoreFeed(feedData.hasMore)
+            setFeedShows([...feedShows, ...feedData.data])
+        });
     }
 
     function updateFeedLikeness(id: string) {
@@ -136,15 +110,7 @@ export default function FeedPage() {
         }
 
         impressionFeeds.push(id)
-        fetch(
-            // axios.get(
-            `https://backend.tedooo.com/?itemId=${id}`
-            // , {
-            //     headers: {
-            //         "Access-Control-Allow-Origin": "*" // this is needed only for Vercel deployment (security restrictions)
-            //     }
-            // }
-        )
+        axios.get(`https://backend.tedooo.com/?itemId=${id}`)
             .then((response) => {
                 if (response.status === 200) {
                     console.log(`impressionFeed ID - ${id} - added`)
@@ -245,8 +211,7 @@ function PostImages(props: { images: string[] }) {
     //can use extractColors for images bg, but the images is blocked for (npm/extract-colors)
     const bgColor = 'bg-VeryLightGray'
     if (props.images.length === 1) {
-        return <img className={`h-[517px] w-[1120px] object-contain ${bgColor}`} src={props.images[0]}
-                    alt="post image"/>
+        return <img className={`h-[517px] w-[1120px] object-contain ${bgColor}`} src={props.images[0]} alt="post image"/>
     }
 
     if (props.images.length > 1) {

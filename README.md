@@ -26,6 +26,21 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# Dadooo
-# Dadooo
-# Dadooo
+# Playwrite - Tests
+`npx playwright test`
+Runs the end-to-end tests.
+
+`npx playwright test --ui`
+Starts the interactive UI mode.
+
+`npx playwright test --project=chromium`
+Runs the tests only on Desktop Chrome.
+
+`npx playwright test example`
+Runs the tests in a specific file.
+
+`npx playwright test --debug`
+Runs the tests in debug mode.
+
+`npx playwright codegen`
+Auto generate tests with Codegen.
